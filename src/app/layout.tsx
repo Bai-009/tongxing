@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
+import { cookies } from 'next/headers';
 import './globals.css';
+import IntroGate from '@/components/IntroGate';
 
 export const metadata: Metadata = {
   title: '同行',
@@ -13,10 +15,16 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const c = await cookies();
+  const seenIntro = c.get('intro_seen')?.value === '1';
+
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        {!seenIntro && <IntroGate />}
+      </body>
     </html>
   );
 }
