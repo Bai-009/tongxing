@@ -10,11 +10,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Vercel Postgres 部署。
-// 本地开发若需 SQLite，临时改回 provider = "sqlite" + .env 的 DATABASE_URL=file:./dev.db
+// Vercel + Neon Postgres 部署。
+// Neon 用 pgbouncer 池化连接（DATABASE_URL），但 Prisma 迁移需要直连，
+// 所以加 directUrl 指向非池化 URL（DATABASE_URL_UNPOOLED 是 Vercel-Neon 集成自动注入的）。
+// 本地开发若需 SQLite，临时改回 provider = "sqlite" + 删 directUrl + .env DATABASE_URL=file:./dev.db
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model User {
