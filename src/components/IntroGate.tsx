@@ -1,6 +1,6 @@
 'use client';
 
-// 每次刷新都弹一次的"为什么这样设计"小弹窗。
+// 每次刷新都弹一次的设计说明小弹窗。
 // 不持久化——给评委每次进入都看见立场。
 // 点遮罩或"知道了"关闭，本次会话内不再弹。
 import { useState } from 'react';
@@ -11,27 +11,57 @@ export default function IntroGate() {
 
   return (
     <div className="sheet-veil" onClick={() => setOpen(false)}>
-      <div className="sheet" onClick={e => e.stopPropagation()}>
+      <div
+        className="sheet"
+        onClick={e => e.stopPropagation()}
+        style={{ maxHeight: '90vh', overflowY: 'auto' }}
+      >
         <div className="sheet-grab" />
-        <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--ink)' }}>
-          为什么这样设计
+
+        <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--ink)', lineHeight: 1.7 }}>
+          一款面向全体大学生的运动激励工具。
         </div>
-        <div style={{ fontSize: 13, lineHeight: 1.85, color: 'var(--ink-soft)', marginTop: 14 }}>
-          游戏化是伪命题——运动场景下，任何积分 / 徽章 / 连续天数都是真游戏的弱化版，
-          必输给王者荣耀和短视频。
+        <div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.75, marginTop: 6 }}>
+          不靠打卡、不靠排行榜、不靠激励个人——把运动嵌进有归属感的团队结构里。
         </div>
-        <div style={{ fontSize: 13, lineHeight: 1.85, color: 'var(--ink-soft)', marginTop: 10 }}>
-          解法是<span style={{ color: 'var(--ink)', fontWeight: 500 }}>「团队为最小单位」</span>——
-          决策从"我去不去运动"变成"我去不去找队伍"，归属感本能没有摩擦，运动作为副产品自然发生。
+
+        <div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.85, marginTop: 18 }}>
+          游戏性的本意，是让用户更轻易地进入到某个状态。在运动这个场景下，要进入的状态就是"动起来"。任何积分 / 徽章 / 连续天数都是真游戏的弱化版，不会让大学生放弃网游和短视频去运动。
         </div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: 'var(--ink-faint)', marginTop: 14 }}>
+
+        <div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.85, marginTop: 12 }}>
+          解法是<span style={{ color: 'var(--ink)', fontWeight: 500 }}>「团队为最小单位」</span>——决策从"我去不去运动"变成"我去不去找队伍"，归属感本能没有摩擦，运动作为副产品自然发生。
+        </div>
+
+        <div style={{
+          fontSize: 12.5,
+          color: 'var(--ink-soft)',
+          lineHeight: 1.9,
+          marginTop: 18,
+          paddingTop: 14,
+          borderTop: '1px solid var(--line-faint)',
+        }}>
           这里不会出现：积分、徽章、排行榜、连续天数。<br />
           取而代之：命名 · 同类队伍 · 日子 · TeamBody pulse · 回望——团队层的集体游戏机制。
         </div>
+
+        <div style={{ fontSize: 11.5, color: 'var(--ink-faint)', lineHeight: 1.7, marginTop: 14 }}>
+          完整BRD见GitHub仓库：
+          <a
+            href="https://github.com/Bai-009/tongxing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--ink-soft)', textDecoration: 'underline' }}
+          >
+            github.com/Bai-009/tongxing
+          </a>
+        </div>
+
         <button
           onClick={() => setOpen(false)}
           className="act"
-          style={{ marginTop: 22, width: '100%' }}>
+          style={{ marginTop: 22, width: '100%' }}
+        >
           知道了
         </button>
       </div>
