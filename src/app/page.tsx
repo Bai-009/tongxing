@@ -38,25 +38,23 @@ export default async function Home() {
 
   return (
     <div className="scene" style={{ padding: 0 }}>
-      <div style={{ paddingTop: 64, paddingLeft: 24, paddingRight: 24 }}>
+      <div style={{ paddingTop: 60, paddingLeft: 24, paddingRight: 24 }}>
         <h1 style={{
-          fontSize: 56,
-          fontWeight: 300,
-          letterSpacing: '0.4em',
-          lineHeight: 1.1,
+          fontSize: 36,
+          fontWeight: 500,
+          letterSpacing: 0,
+          lineHeight: 1.2,
           color: 'var(--ink)',
-          fontFamily: "'PingFang SC Light', 'Microsoft YaHei UI Light', 'Hiragino Sans GB W3', 'PingFang SC', 'Microsoft YaHei', sans-serif",
           margin: 0,
-          textIndent: '0.2em',
         }}>
           同行
         </h1>
         <div style={{
-          fontSize: 11,
+          fontSize: 11.5,
           color: 'var(--ink-faint)',
-          marginTop: 18,
-          letterSpacing: 0.3,
-          lineHeight: 1.7,
+          marginTop: 10,
+          letterSpacing: 0.2,
+          lineHeight: 1.65,
         }}>
           运动激励工具 · 把运动嵌进归属感的团队结构里
         </div>
