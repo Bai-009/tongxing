@@ -38,10 +38,26 @@ export default async function Home() {
 
   return (
     <div className="scene" style={{ padding: 0 }}>
-      <div style={{ paddingTop: 56, paddingLeft: 24, paddingRight: 24 }}>
-        <div style={{ fontSize: 12, color: 'var(--ink-faint)', letterSpacing: 1 }}>同行</div>
-        <div className="title-l" style={{ marginTop: 4 }}>你的队伍</div>
-        <div style={{ fontSize: 11, color: 'var(--ink-faint)', marginTop: 8, letterSpacing: 0.3, lineHeight: 1.6 }}>
+      <div style={{ paddingTop: 64, paddingLeft: 24, paddingRight: 24 }}>
+        <h1 style={{
+          fontSize: 56,
+          fontWeight: 300,
+          letterSpacing: '0.4em',
+          lineHeight: 1.1,
+          color: 'var(--ink)',
+          fontFamily: "'PingFang SC Light', 'Microsoft YaHei UI Light', 'Hiragino Sans GB W3', 'PingFang SC', 'Microsoft YaHei', sans-serif",
+          margin: 0,
+          textIndent: '0.2em',
+        }}>
+          同行
+        </h1>
+        <div style={{
+          fontSize: 11,
+          color: 'var(--ink-faint)',
+          marginTop: 18,
+          letterSpacing: 0.3,
+          lineHeight: 1.7,
+        }}>
           运动激励工具 · 把运动嵌进归属感的团队结构里
         </div>
       </div>
