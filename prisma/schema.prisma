@@ -1,0 +1,184 @@
+// 同行 — 数据模型
+//
+// 五条硬规则在 schema 上的体现：
+// - Moment 只有 present 关系，没有 absent —— 历史只承载发生过的事
+// - Naming / CoNaming 只有 title + hint + 关联 moments，没有数字字段
+// - User 没有 statistics / streak / level 字段
+// - 所有 Team-User 关系都是平等的成员关系，没有 role / contribution 字段
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 开发用 SQLite（零依赖即开即用）
+// 部署到 Vercel 时切换为 postgresql + 配 DATABASE_URL
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id   String @id
+  name String
+
+  foundedTeams      Team[]            @relation("TeamFounder")
+  memberships       TeamMember[]
+  presentAt         MomentPresent[]
+  triggerResponses  TriggerResponse[]
+  lifeChanges       LifeChange[]      @relation("UserLifeChanges")
+}
+
+model Team {
+  id        String   @id
+  name      String
+  hue       String   // 主色
+  tint      String   // 浅色（背景晕染）
+  ink       String   // 深色（团队名等少数文字）
+  field     String   // 隐性的运动类型，主要服务环境引擎推导
+  founderId String
+  bornAt    DateTime
+  motto     String?
+
+  founder    User         @relation("TeamFounder", fields: [founderId], references: [id])
+  members    TeamMember[]
+  moments    Moment[]
+  namings    Naming[]
+  triggers   Trigger[]
+  echoes     Echo[]
+  lifeChanges LifeChange[] @relation("TeamLifeChanges")
+
+  // 团队间关系（自指多对多，用显式 A/B 端解决方向问题）
+  coNamingsAsA  CoNaming[]  @relation("CoNamingTeamA")
+  coNamingsAsB  CoNaming[]  @relation("CoNamingTeamB")
+  encountersAsA Encounter[] @relation("EncounterTeamA")
+  encountersAsB Encounter[] @relation("EncounterTeamB")
+}
+
+// 成员关系：平等的，没有 role / contribution / activity_score 字段
+model TeamMember {
+  teamId String
+  userId String
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([teamId, userId])
+}
+
+// 一次相聚：不可分割的事件单位
+model Moment {
+  id      String   @id
+  teamId  String
+  at      DateTime
+  where   String?
+  weather String?
+  note    String?
+
+  team    Team            @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  present MomentPresent[]
+  namings Naming[]        @relation("NamingMoments")
+}
+
+// 在场关系 —— 谁在那次相聚里
+// 不存"未到者"。沉默地让历史只承载发生过的事。
+model MomentPresent {
+  momentId String
+  userId   String
+
+  moment Moment @relation(fields: [momentId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([momentId, userId])
+}
+
+// 命名 —— 团队成就。回望式，不是 KPI。
+model Naming {
+  id     String   @id
+  teamId String
+  title  String   // 例 "湿场" "院赛" "第一次环湖"
+  hint   String   // 一句事实陈述，无情绪
+  bornAt DateTime
+
+  team    Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  moments Moment[] @relation("NamingMoments")
+}
+
+// 联动命名 —— 团队间成就
+// 两支团队共享，不分主次。
+model CoNaming {
+  id      String   @id
+  teamAId String
+  teamBId String
+  title   String
+  hint    String
+  bornAt  DateTime
+
+  teamA Team @relation("CoNamingTeamA", fields: [teamAId], references: [id], onDelete: Cascade)
+  teamB Team @relation("CoNamingTeamB", fields: [teamBId], references: [id], onDelete: Cascade)
+
+  @@unique([teamAId, teamBId, title])
+}
+
+// 共在 —— 团队间的事实事件
+model Encounter {
+  id          String   @id
+  teamAId     String
+  teamBId     String
+  description String
+  at          DateTime
+
+  teamA Team @relation("EncounterTeamA", fields: [teamAId], references: [id], onDelete: Cascade)
+  teamB Team @relation("EncounterTeamB", fields: [teamBId], references: [id], onDelete: Cascade)
+}
+
+// 环境引擎诱因 —— 由「它」推导出来
+model Trigger {
+  id        String   @id
+  teamId    String
+  whisper   String
+  // 它的"思考过程"。存 JSON 字符串以兼容 SQLite/Postgres。
+  // 通过 src/lib/queries.ts 中的 helper 反序列化为 string[]。
+  reasoning String
+  bornAt    DateTime
+  expireAt  DateTime
+
+  team      Team              @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  responses TriggerResponse[]
+}
+
+// 谁响应了诱因 —— "也到"
+model TriggerResponse {
+  triggerId String
+  userId    String
+
+  trigger Trigger @relation(fields: [triggerId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([triggerId, userId])
+}
+
+// 成员动态 —— 团队的「社区」段
+// 仅团队成员可发，所有人可看（团队主页公开）
+// 这是产品里"影响力"的具体载体
+model LifeChange {
+  id       String   @id
+  teamId   String
+  userId   String
+  body     String   // 一句话：生活改变 / 涟漪 / 此刻小记录
+  category String   // 'change' | 'ripple' | 'note'
+  sharedAt DateTime
+
+  team Team @relation("TeamLifeChanges", fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation("UserLifeChanges", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 「它」的回望 —— 长期记忆压缩
+model Echo {
+  id         String   @id
+  teamId     String
+  body       String   // 多行散文式事实条目（SQLite 不支持 @db.Text，省略）
+  composedAt DateTime
+  scope      String   // 'wall-end' | 'recent'
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+}
