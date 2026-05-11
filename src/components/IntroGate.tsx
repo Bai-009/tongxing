@@ -45,6 +45,15 @@ export default function IntroGate() {
           取而代之：命名 · 同类队伍 · 日子 · TeamBody pulse · 回望——团队层的集体游戏机制。
         </div>
 
+        <div style={{
+          fontSize: 12.5,
+          color: 'var(--ink-soft)',
+          lineHeight: 1.9,
+          marginTop: 14,
+        }}>
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态下的扩展</span>：装备 / 水 / 场地通过外卖柜提前送达——下课直接到场就开始运动，背包不用带任何东西。Agent + 互联网"为团队创造再聚的条件"具体落地。
+        </div>
+
         <div style={{ fontSize: 11.5, color: 'var(--ink-faint)', lineHeight: 1.7, marginTop: 14 }}>
           完整BRD见GitHub仓库：
           <a
