@@ -51,7 +51,15 @@ export default function IntroGate() {
           lineHeight: 1.9,
           marginTop: 14,
         }}>
-          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态下的扩展</span>：装备 / 水 / 场地通过外卖柜提前送达。到运动场不是"开始"——开始早就发生在你把球鞋塞进柜子的那一秒，发生在你下单订好场地的那一下。
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>Agent 给理由</span>：产品里的「它」持续观察实时场地、天气、邻队此刻在动、最近一次相聚距今多久——从这些信号里拼出"今晚这里"的诱因，给团队一个再聚的理由。
+        </div>
+        <div style={{
+          fontSize: 12.5,
+          color: 'var(--ink-soft)',
+          lineHeight: 1.9,
+          marginTop: 10,
+        }}>
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态给条件</span>：理由之外，把物理条件也备好——装备 / 水 / 场地通过外卖柜提前送达。到运动场不是"开始"——开始早就发生在你把球鞋塞进柜子的那一秒，发生在你下单订好场地的那一下。
         </div>
         <div style={{
           fontSize: 12.5,
