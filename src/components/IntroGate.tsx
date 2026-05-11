@@ -51,7 +51,7 @@ export default function IntroGate() {
           lineHeight: 1.9,
           marginTop: 14,
         }}>
-          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>Agent 给理由</span>：产品里的「它」持续观察实时场地、天气、邻队此刻在动、最近一次相聚距今多久——从这些信号里拼出"今晚这里"的诱因，给团队一个再聚的理由。
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>Agent 给理由</span>：产品里的「它」持续观察实时场地、天气、其他团队此刻在动等信息里拼出"今晚这里"的原因，给团队一个运动理由。
         </div>
         <div style={{
           fontSize: 12.5,
@@ -59,14 +59,22 @@ export default function IntroGate() {
           lineHeight: 1.9,
           marginTop: 10,
         }}>
-          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态给条件</span>：理由之外，把物理条件也备好——装备 / 水 / 场地通过外卖柜提前送达。到运动场不是"开始"——开始早就发生在你把球鞋塞进柜子的那一秒，发生在你下单订好场地的那一下。
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态给条件</span>：理由之外，大学生拒绝运动的一个重要原因——启动摩擦太大，美团生态可以把物理条件也备好——装备 / 水 / 场地通过外卖提前送达。到运动场不是"开始"——开始早就发生在你把球鞋塞进柜子的那一秒，发生在你下单订好场地的那一下。
+        </div>
+        <div style={{
+          fontSize: 12.5,
+          color: 'var(--ink-soft)',
+          lineHeight: 1.9,
+          marginTop: 14,
+        }}>
+          团队带来了关系，更低的运动成本，最重要的是沉淀了故事。
         </div>
         <div style={{
           fontSize: 12.5,
           color: 'var(--ink)',
           fontWeight: 500,
           lineHeight: 1.85,
-          marginTop: 10,
+          marginTop: 6,
         }}>
           系统性地增加大学生的运动频率，不靠自觉、不靠打卡。
         </div>
