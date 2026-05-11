@@ -9,6 +9,7 @@ import TeamBody from '@/components/TeamBody';
 import TriggerCard from './_TriggerCard';
 import ActionBar from './_ActionBar';
 import NewLifeChangeButton from './_NewLifeChangeButton';
+import PrepStrip from './_PrepStrip';
 import {
   getTeam, getTeamWithMembers, getTeamMoments, getActiveTrigger,
   getTeamNamings, getTeamCoNamings, getTeamLifeChanges,
@@ -119,8 +120,11 @@ export default async function TeamSpacePage({ params }: { params: Promise<{ id: 
         </div>
       </div>
 
-      {/* 当下诱因 */}
+      {/* 当下诱因 —— Agent 给理由 */}
       {trigger && <TriggerCard trigger={trigger} team={team} currentUserId={me.id} />}
+
+      {/* 今晚的准备 —— 美团生态给条件（静态演示，仅成员可见） */}
+      {isMine && trigger && <PrepStrip teamField={team.field} />}
 
       {/* 新团队空状态引导 —— 给评委 / 真实新建者解释接下来会发生什么 */}
       {isMine && moments.length === 0 && (
