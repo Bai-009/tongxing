@@ -51,7 +51,16 @@ export default function IntroGate() {
           lineHeight: 1.9,
           marginTop: 14,
         }}>
-          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态下的扩展</span>：装备 / 水 / 场地通过外卖柜提前送达——下课直接到场就开始运动，背包不用带任何东西。Agent + 互联网"为团队创造再聚的条件"具体落地。
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>美团生态下的扩展</span>：装备 / 水 / 场地通过外卖柜提前送达。到运动场不是"开始"——开始早就发生在你把球鞋塞进柜子的那一秒，发生在你下单订好场地的那一下。
+        </div>
+        <div style={{
+          fontSize: 12.5,
+          color: 'var(--ink)',
+          fontWeight: 500,
+          lineHeight: 1.85,
+          marginTop: 10,
+        }}>
+          系统性地增加大学生的运动频率，不靠自觉、不靠打卡。
         </div>
 
         <div style={{ fontSize: 11.5, color: 'var(--ink-faint)', lineHeight: 1.7, marginTop: 14 }}>
